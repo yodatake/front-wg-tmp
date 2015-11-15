@@ -1,3 +1,13 @@
 {
-"node" : true
+	"node": true,
+	"globals": {
+		"jasmine": true,
+		"angular": true,
+		"browser": true,
+		"element": true,
+		"by": true,
+		"io": true,
+		"_": false,
+		"$": false
+	}
 }

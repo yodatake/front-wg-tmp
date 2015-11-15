@@ -10,8 +10,10 @@ var paths = {
     index      : ['./client/index.html'],
     angular    : ['./client/assets/vendor/angular/*.js'],
     vendor     : ['./client/assets/vendor/*.js', './client/assets/vendor/*.css'],
-    app        : ['./client/app/*.js'], // Node Express用のディレクトリ
-    shared     : ['./client/app/shared/*.js'], 
+	app        : ['./client/app/*.js', "./client/assets/css/*.css"],
+	controllers : ['./client/app/controllers/*.js'],
+	models     : ['./client/app/models/*.js'],
+	shared     : ['./client/app/shared/*.js'], 
     components : ['./client/app/componets/*.js']
 };
 
@@ -22,7 +24,9 @@ gulp.task('inject', function() {
         .pipe(inject(gulp.src(paths.app, {read:false}), {name: 'app'}))
         .pipe(inject(gulp.src(paths.shared, {read: false}), {name: 'shared'}))
         .pipe(inject(gulp.src(paths.components, {read:false}), {name: 'components'}))
-        .pipe(gulp.dest('./client'));
+		.pipe(inject(gulp.src(paths.controllers, {read:false}), {name: 'controllers'}))
+		.pipe(inject(gulp.src(paths.models, {read:false}), {name: 'models'}))
+		.pipe(gulp.dest('./client'));
 });
 
 gulp.task('browser-sync', function() {
@@ -33,7 +37,7 @@ gulp.task('browser-sync', function() {
     bs.init(null,
 		{
 		server: {
-			baseDir: "./"
+			baseDir: "./" // browser-syncサーバで提供するコンテンツ
 			,index  : paths.index     //インデックスファイル
 		},
         files: pathsArray,
