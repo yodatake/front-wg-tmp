@@ -3,8 +3,7 @@ var gulp            = require('gulp'),
     inject          = require('gulp-inject'),
     jshint          = require('gulp-jshint'),
     angularFilesort = require('gulp-angular-filesort'),
-    bs              = require('browser-sync').create(),
-    nodemon         = require('gulp-nodemon');
+    bs              = require('browser-sync').create();
 
 var paths = {
     index      : ['./client/index.html'],
@@ -37,8 +36,8 @@ gulp.task('browser-sync', function() {
     bs.init(null,
 		{
 		server: {
-			baseDir: "./" // browser-syncサーバで提供するコンテンツ
-			,index  : paths.index     //インデックスファイル
+			baseDir: "./", // browser-syncサーバで提供するコンテンツ
+			index  : paths.index     //インデックスファイル
 		},
         files: pathsArray,
         browser: "google chrome"
@@ -53,15 +52,5 @@ gulp.task('jshint', function () {
 		.pipe( jshint.reporter('jshint-stylish') )
 		.pipe( jshint.reporter('fail') ); // ← 変更
 });
-
-//gulp.task('nodemon', function(cb) {
-//    return nodemon({script: './server/app.js'})
-//    .on('start', function() {
-//        cb();
-//    })
-//    .on('restart', function() {
-//        console.log('nodemon restarted!');
-//    });
-//});
 
 gulp.task('default', ['inject', 'browser-sync', 'jshint']); 
