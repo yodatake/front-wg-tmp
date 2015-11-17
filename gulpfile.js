@@ -6,14 +6,14 @@ var gulp            = require('gulp'),
     bs              = require('browser-sync').create();
 
 var paths = {
-    index      : ['./client/index.html'],
-    angular    : ['./client/assets/vendor/angular/*.js'],
-    vendor     : ['./client/assets/vendor/*.js', './client/assets/vendor/*.css'],
-	app        : ['./client/app/*.js', "./client/assets/css/*.css"],
-	controllers : ['./client/app/controllers/*.js'],
-	models     : ['./client/app/models/*.js'],
-	shared     : ['./client/app/shared/*.js'], 
-    components : ['./client/app/componets/*.js']
+    index      : ['./src/index.html'],
+    angular    : ['./src/assets/vendor/angular/*.js'],
+    vendor     : ['./src/assets/vendor/*.js', './src/assets/vendor/*.css'],
+	app        : ['./src/app/*.js', "./src/assets/css/*.css"],
+	controllers : ['./src/app/controllers/*.js'],
+	models     : ['./src/app/models/*.js'],
+	shared     : ['./src/app/shared/*.js'], 
+    components : ['./src/app/componets/*.js']
 };
 
 gulp.task('inject', function() {
@@ -25,7 +25,7 @@ gulp.task('inject', function() {
         .pipe(inject(gulp.src(paths.components, {read:false}), {name: 'components'}))
 		.pipe(inject(gulp.src(paths.controllers, {read:false}), {name: 'controllers'}))
 		.pipe(inject(gulp.src(paths.models, {read:false}), {name: 'models'}))
-		.pipe(gulp.dest('./client'));
+		.pipe(gulp.dest('./src'));
 });
 
 gulp.task('browser-sync', function() {
