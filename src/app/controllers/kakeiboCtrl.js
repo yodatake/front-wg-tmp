@@ -50,7 +50,7 @@
 
 	// Module(Controller)
 	app.controller('KakeiboController', ['$scope', 'KakeiboService', 'Kakeibo',
-			function KakeiboController($scope, KakeiboService, Kakeibo) {
+			function ($scope, KakeiboService, Kakeibo) {
 				// 一覧のデータバインド用変数
 				$scope.kakeibos = KakeiboService.getKakeibos();
 			}
