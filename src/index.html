@@ -48,7 +48,7 @@
 						<th>金額</th>
 					</tr>
 				</thead>
-				<tbody ng-repeat="kakeibo in kakeibos  | orderBy : ['date','item']">
+				<tbody ng-repeat="kakeibo in kakeibos">
 					<tr ng-class="{'bg-selected':kakeibo.selected}" ng-click="selected(kakeibo)">
 						<td>{{ kakeibo.formatDate() }}</td>
 						<td>{{ kakeibo.item }}</td>
