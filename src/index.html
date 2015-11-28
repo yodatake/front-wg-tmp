@@ -2,52 +2,73 @@
 <html class="no-js">
 
 <head>
-    <title></title>
-    <meta charset="utf-8">
-    <!-- vendor:css -->
-    <link rel="stylesheet" href="/src/assets/vendor/bootstrap.min.css">
-    <!-- endinject -->
-    <!-- app:css -->
-    <link rel="stylesheet" href="/src/assets/css/app.css">
-    <!-- endinject -->
+	<title></title>
+	<meta charset="utf-8">
+	<!-- vendor:css -->
+	<link rel="stylesheet" href="/src/assets/vendor/bootstrap.min.css">
+	<!-- endinject -->
+	<!-- app:css -->
+	<link rel="stylesheet" href="/src/assets/css/app.css">
+	<!-- endinject -->
 </head>
 
 <body ng-app="frontWgApp">
-    <h1>家計簿サンプルアプリ</h1>
-    <!-- angular:js -->
-    <script src="/src/assets/vendor/angular/angular.min.js"></script>
-    <script src="/src/assets/vendor/angular/angular-ui-router.min.js"></script>
-    <!-- endinject -->
-    <!-- vendor:js -->
-    <script src="/src/assets/vendor/jquery-2.1.4.min.js"></script>
-    <script src="/src/assets/vendor/moment-with-locales.min.js"></script>
-    <script src="/src/assets/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
-    <!-- endinject -->
-    <!-- shared:js -->
-    <!-- endinject -->
-    <!-- app:js -->
-    <script src="/src/app/app.js"></script>
-    <!-- endinject -->
-    <!-- models:js -->
-    <!-- endinject -->
-    <!-- controllers:js -->
-    <script src="/src/app/controllers/kakeiboCtrl.js"></script>
-    <!-- endinject -->
-    <!-- components:js -->
-    <!-- endinject -->
+	<h1>家計簿サンプルアプリ</h1>
+	<!-- angular:js -->
+	<script src="/src/assets/vendor/angular/angular.min.js"></script>
+	<script src="/src/assets/vendor/angular/angular-ui-router.min.js"></script>
+	<!-- endinject -->
+	<!-- vendor:js -->
+	<script src="/src/assets/vendor/jquery-2.1.4.min.js"></script>
+	<script src="/src/assets/vendor/moment-with-locales.min.js"></script>
+	<script src="/src/assets/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
+	<!-- endinject -->
+	<!-- shared:js -->
+	<!-- endinject -->
+	<!-- app:js -->
+	<script src="/src/app/app.js"></script>
+	<!-- endinject -->
+	<!-- models:js -->
+	<!-- endinject -->
+	<!-- controllers:js -->
+	<script src="/src/app/controllers/kakeiboCtrl.js"></script>
+	<!-- endinject -->
+	<!-- components:js -->
+	<!-- endinject -->
 
-    <div ng-controller="KakeiboController">
-        <section id="kakeibo_list">
-            <!-- 一覧表示部分 -->
-            <ul>
-                <li ng-repeat="kakeibo in kakeibos">
-                    <div class="list_items">日付：{{ kakeibo.formatDate() }}</div>
-                    <div class="list_items">金額：{{ kakeibo.moneyDisp() }}</div>
-                    <div class="list_items">品目{{ kakeibo.item }}</div>
-                </li>
-            </ul>
-        </section>
-    </div>
+	<div ng-controller="KakeiboController">
+		<section id="kakeibo_list">
+			<h2>一覧</h2>
+			<!-- 一覧表示部分 -->
+			<ul>
+				<li ng-repeat="kakeibo in kakeibos  | orderBy : ['date','item']">
+					<div class="list_items">品目：{{ kakeibo.formatDate() }}</div>
+					<div class="list_items">金額：{{ kakeibo.moneyDisp() }}</div>
+					<div class="list_items">日付：{{ kakeibo.item }}</div>
+				</li>
+			</ul>
+		</section>
+		<section id="kakeibo_input">
+			<h2>入力</h2>
+			<form>
+				<div class="form-group">
+					<label for="in_item" accesskey="i">品目</label>
+					<input ng-model="in_kakeibo.item" type="text">
+				</div>
+				<div class="form-group">
+					<label for="in_item" accesskey="m">金額</label>
+					<input ng-model="in_kakeibo.money" type="text">
+				</div>
+				<div class="form-group">
+					<label for="in_item" accesskey="i">日付</label>
+					<input ng-model="in_kakeibo.date" type="date">
+				</div>
+				<div class="form-group">
+					<input type="button" ng-click="addNew()" value="新規追加">
+				</div>
+			</form>
+		</section>
+	</div>
 </body>
 
 </html>

@@ -7,12 +7,15 @@
 
 	// Value(定数定義)
 	app.value(
-		'dateFormat', {
-			'jpn': 'YYYY年MM月DD日'
-		});
+		'consts', {
+			'dateFormat': {
+				'jpn': 'YYYY年MM月DD日'
+			}
+		}
+	);
 
 	// Module(Model)
-	app.factory('Kakeibo', ['dateFormat', function (dateFormat) {
+	app.factory('Kakeibo', ['consts', function (consts) {
 		// コンストラクタ
 		function Kakeibo(date, money, item) {
 			// this はインスタンスを表します。
@@ -26,7 +29,7 @@
 		Kakeibo.prototype.formatDate = function () {
 			// メンバ変数の定義・参照は this.<メンバ変数> を使います。
 			// C++, Java と違い this は省略できません。
-			return moment(this.date).format(dateFormat.jpn);
+			return moment(this.date).format(consts.dateFormat.jpn);
 		};
 
 		// 表示用に金額をフォーマット
@@ -41,8 +44,9 @@
 	app.service('KakeiboService', ['Kakeibo', function (Kakeibo) {
 		this.getKakeibos = function () {
 			var kakeibos = [];
-			kakeibos[0] = new Kakeibo(new Date(), 1000, "お餅");
-			kakeibos[1] = new Kakeibo(new Date(), 2000, "おかき");
+			kakeibos.push(new Kakeibo(new Date(), 1000, "お餅"));
+			kakeibos.push(new Kakeibo(new Date('2015/10/10'), 2000, "おかき"));
+			kakeibos.push(new Kakeibo(new Date('2015/10/12'), 2000, "おかき"));
 
 			return kakeibos;
 		};
@@ -50,9 +54,16 @@
 
 	// Module(Controller)
 	app.controller('KakeiboController', ['$scope', 'KakeiboService', 'Kakeibo',
-			function ($scope, KakeiboService, Kakeibo) {
-				// 一覧のデータバインド用変数
-				$scope.kakeibos = KakeiboService.getKakeibos();
-			}
+										 function ($scope, KakeiboService, Kakeibo) {
+
+			$scope.in_kakeibo = new Kakeibo(new Date(), 0, "");
+
+			// 一覧のデータバインド用変数
+			$scope.kakeibos = KakeiboService.getKakeibos();
+
+			$scope.addNew = function () {
+				$scope.kakeibos.push(angular.copy($scope.in_kakeibo));
+			};
+										 }
 		]);
 })();
