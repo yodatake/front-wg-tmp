@@ -1,0 +1,6 @@
+tr {
+	cursor: pointer;
+}
+.bg-selected {
+	background-color: blue;
+}
