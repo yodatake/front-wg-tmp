@@ -42,7 +42,15 @@
 		return Kakeibo;
 	}]);
 
-	//Module(Service)
+	// SharedService グラフコントローラとリストのコントローラ間で共有するデータ構造
+	app.factory("SharedKakeiboService", function () {
+		return {
+			// Kakeiboオブジェクトの配列
+			kakeibos: []
+		};
+	});
+
+	// Module(Service)
 	app.service('KakeiboService', ['Kakeibo', function (Kakeibo) {
 		this.getKakeibos = function () {
 			var kakeibos = [];
@@ -53,10 +61,26 @@
 		};
 	}]);
 
+	// Graph描画サービス
+	app.service('GraphService', ['Kakeibo', 'SharedKakeiboService', function (Kakeibo, SharedKakeiboService) {
+		this.genDayOfCostGraphData = function () {
+			SharedKakeiboService.kakeibos;
+		};
+	}]);
+
 	// Module(Controller)
-	app.controller('KakeiboController', ['$scope', 'KakeiboService', 'Kakeibo', function ($scope, KakeiboService, Kakeibo) {
+	app.controller('KakeiboController', ['$scope', 'KakeiboService', 'Kakeibo', 'SharedKakeiboService', function ($scope, KakeiboService, Kakeibo, SharedKakeiboService) {
+
+			$scope.$watch(function () {
+				return $scope.kakeibos; //監視する値
+			}, function () {
+				SharedKakeiboService.kakeibos = $scope.kakeibos;
+			});
+
 			// 一覧のデータバインド用変数
 			$scope.kakeibos = KakeiboService.getKakeibos();
+
+			//			SharedKakeiboService.kakeibos = $scope.kakeibos;
 
 			// 入力された家計簿
 			$scope.in_kakeibo = new Kakeibo(numberringId(), new Date(), 0, "");
@@ -109,4 +133,40 @@
 			}
 		}
 		]);
+
+	app.controller('GraphController', ['$scope', 'SharedKakeiboService', function ($scope, SharedKakeiboService) {
+		$scope.chart = null;
+		//watchを使った変更の監視
+		$scope.$watch(function () {
+			return SharedKakeiboService.kakeibos; //監視する値
+		}, function () {
+			var datas = SharedKakeiboService.kakeibos.map(function (kakeibo) {
+				return {
+					"money": kakeibo.money,
+					"date": kakeibo.formatDate
+				};
+			});
+
+			$scope.chart.load({
+				json: datas,
+				keys: {
+					value: ['money'],
+				}
+			});
+		});
+
+		$scope.showGraph = function () {
+			$scope.chart = c3.generate({
+				bindto: '#chart',
+				data: {
+					json: [],
+					keys: {
+						value: ['money'],
+					},
+					type: 'bar'
+				}
+			});
+		};
+	}]);
+
 })();

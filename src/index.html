@@ -6,6 +6,7 @@
 	<meta charset="utf-8">
 	<!-- vendor:css -->
 	<link rel="stylesheet" href="/src/assets/vendor/bootstrap.min.css">
+	<link rel="stylesheet" href="/src/assets/vendor/c3.min.css">
 	<!-- endinject -->
 	<!-- app:css -->
 	<link rel="stylesheet" href="/src/assets/css/app.css">
@@ -19,6 +20,8 @@
 	<script src="/src/assets/vendor/angular/angular-ui-router.min.js"></script>
 	<!-- endinject -->
 	<!-- vendor:js -->
+	<script src="/src/assets/vendor/1_d3.min.js"></script>
+	<script src="/src/assets/vendor/2_c3.min.js"></script>
 	<script src="/src/assets/vendor/jquery-2.1.4.min.js"></script>
 	<script src="/src/assets/vendor/moment-with-locales.min.js"></script>
 	<script src="/src/assets/vendor/ui-bootstrap-tpls-0.14.3.min.js"></script>
@@ -35,7 +38,12 @@
 	<!-- endinject -->
 	<!-- components:js -->
 	<!-- endinject -->
-
+	
+	<div ng-controller="GraphController" ng-init="showGraph()">
+		<section id="kakeibo_chart">
+			<div id="chart"></div>
+		</section>
+	</div>
 	<div ng-controller="KakeiboController">
 		<section id="kakeibo_list">
 			<h2>一覧</h2>

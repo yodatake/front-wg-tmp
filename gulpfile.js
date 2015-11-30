@@ -9,10 +9,10 @@ var paths = {
     index      : ['./src/index.html'],
     angular    : ['./src/assets/vendor/angular/*.js'],
     vendor     : ['./src/assets/vendor/*.js', './src/assets/vendor/*.css'],
-	app        : ['./src/app/*.js', "./src/assets/css/*.css"],
-	controllers : ['./src/app/controllers/*.js'],
-	models     : ['./src/app/models/*.js'],
-	shared     : ['./src/app/shared/*.js'], 
+    app        : ['./src/app/*.js', "./src/assets/css/*.css"],
+    controllers : ['./src/app/controllers/*.js'],
+    models     : ['./src/app/models/*.js'],
+    shared     : ['./src/app/shared/*.js'], 
     components : ['./src/app/componets/*.js']
 };
 
@@ -23,9 +23,9 @@ gulp.task('inject', function() {
         .pipe(inject(gulp.src(paths.app, {read:false}), {name: 'app'}))
         .pipe(inject(gulp.src(paths.shared, {read: false}), {name: 'shared'}))
         .pipe(inject(gulp.src(paths.components, {read:false}), {name: 'components'}))
-		.pipe(inject(gulp.src(paths.controllers, {read:false}), {name: 'controllers'}))
-		.pipe(inject(gulp.src(paths.models, {read:false}), {name: 'models'}))
-		.pipe(gulp.dest('./src'));
+        .pipe(inject(gulp.src(paths.controllers, {read:false}), {name: 'controllers'}))
+        .pipe(inject(gulp.src(paths.models, {read:false}), {name: 'models'}))
+        .pipe(gulp.dest('./src'));
 });
 
 gulp.task('browser-sync', function() {
@@ -34,23 +34,23 @@ gulp.task('browser-sync', function() {
         pathsArray = pathsArray.concat(paths[key]);
     });
     bs.init(null,
-		{
-		server: {
-			baseDir: "./", // browser-syncサーバで提供するコンテンツ
-			index  : paths.index     //インデックスファイル
-		},
+        {
+        server: {
+            baseDir: "./", // browser-syncサーバで提供するコンテンツ
+            index  : paths.index     //インデックスファイル
+        },
         files: pathsArray,
         browser: "google chrome"
     });
-	console.info(pathsArray);
+    console.info(pathsArray);
 });
 
 // js hint
 gulp.task('jshint', function () {
-	return gulp.src(paths.app, {read:false})
-		.pipe( jshint() )
-		.pipe( jshint.reporter('jshint-stylish') )
-		.pipe( jshint.reporter('fail') ); // ← 変更
+    return gulp.src(paths.app, {read:false})
+        .pipe( jshint() )
+        .pipe( jshint.reporter('jshint-stylish') )
+        .pipe( jshint.reporter('fail') ); // ← 変更
 });
 
 gulp.task('default', ['inject', 'browser-sync', 'jshint']); 
