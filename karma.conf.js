@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
     	'src/assets/vendor/angular/angular.min.js',
     	'src/assets/vendor/angular/angular-mocks.js',
+	'src/assets/vendor/moment-with-locales.min.js',
 
 	'src/app/**/*.js',
 	'src/app/**/*.spec.js'
