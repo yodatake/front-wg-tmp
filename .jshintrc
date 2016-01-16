@@ -9,6 +9,15 @@
 		"io": true,
 		"_": false,
 		"$": false,
-        "moment": false
+        "moment": false,
+		"it"         : false,
+		"xit"        : false,
+		"describe"   : false,
+		"xdescribe"  : false,
+		"beforeEach" : false,
+		"afterEach"  : false,
+		"expect"     : false,
+		"spyOn"      : false,
+		"inject" : false
 	}
 }
