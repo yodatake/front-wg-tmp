@@ -65,7 +65,7 @@ gulp.task('jshint', function () {
 });
 
 // karma
-gulp.task('karma', function () {
+gulp.task('test', function () {
 	return gulp.src(testFiles)
 		.pipe(karma(
 		{
@@ -75,4 +75,4 @@ gulp.task('karma', function () {
 	
 });
 
-gulp.task('default', ['inject', 'browser-sync', 'jshint']);
+gulp.task('default', ['test', 'inject', 'browser-sync']);

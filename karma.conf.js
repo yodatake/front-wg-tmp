@@ -15,12 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-    	'src/assets/vendor/angular/angular.min.js',
-    	'src/assets/vendor/angular/angular-mocks.js',
-	'src/assets/vendor/moment-with-locales.min.js',
-
-	'src/app/**/*.js',
-	'src/app/**/*.spec.js'
+    // gulp-karmaで実行するので以下のファイル定義は不要
+//     	'src/assets/vendor/angular/angular.min.js',
+//     	'src/assets/vendor/angular/angular-mocks.js',
+// 	'src/assets/vendor/moment-with-locales.min.js',
+// 
+// 	'src/app/**/*.js',
+// 	'src/app/**/*.spec.js'
     ],
 
 
